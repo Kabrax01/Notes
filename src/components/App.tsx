@@ -18,6 +18,7 @@ function App() {
     const [selectedNote, setSelectedNote] = useState<Note | undefined>();
     const [showNewNoteForm, setShowNewNoteForm] = useState<boolean>(false);
     const [edit, setEdit] = useState<boolean>(false);
+    const [background, setBackground] = useState("url(background-4k.webp)");
 
     useEffect(() => {
         if (!notes.length) {
@@ -42,13 +43,15 @@ function App() {
 
     useEffect(() => {
         const size = window.innerWidth;
-        console.log(size);
+        size < 900
+            ? setBackground("url(background-mobile.webp)")
+            : setBackground("url(background-4k.webp)");
     }, []);
 
     return (
         <main
             style={{
-                backgroundImage: "url(background-4k.webp)",
+                backgroundImage: `${background}`,
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
                 backgroundSize: "cover",
