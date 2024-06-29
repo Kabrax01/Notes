@@ -166,15 +166,15 @@ button {
             &-content {
                 flex-grow: 3;
                 width: 100%;
-                overflow-y: scroll;
-                scrollbar-width: none;
+                height: 70%;
 
                 p {
                     padding: 1rem 2rem;
                     font-size: 1.2rem;
                     font-weight: 600;
                     line-height: 1.2;
-                    height: 100%;
+                    max-height: 45vh;
+                    overflow-y: scroll;
                     word-break: break-word;
                 }
             }
