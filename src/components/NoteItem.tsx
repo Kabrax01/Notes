@@ -30,8 +30,8 @@ export function NoteItem({
             </div>
 
             <div className="note_actions">
-                <button onClick={() => setEdit((prev) => !prev)}>Edit</button>
-                <button onClick={handleDeleteNote}>Delete</button>
+                <button onClick={() => setEdit((prev) => !prev)}>Edytuj</button>
+                <button onClick={handleDeleteNote}>Usuń</button>
             </div>
         </div>
     );
