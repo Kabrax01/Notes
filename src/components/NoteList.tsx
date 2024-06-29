@@ -1,15 +1,18 @@
 import { Note } from "./App";
+import NoteTitle from "./NoteTitle";
 
 interface NotesProps {
     notes: Note[] | null;
     setSelectedNote: React.Dispatch<React.SetStateAction<Note | undefined>>;
     handleShowForm: React.MouseEventHandler<HTMLButtonElement>;
+    selectedNote: Note | undefined;
 }
 
 export function NoteList({
     notes,
     setSelectedNote,
     handleShowForm,
+    selectedNote,
 }: NotesProps) {
     const emptyNoteList = Boolean(notes?.length);
 
@@ -23,9 +26,13 @@ export function NoteList({
 
                 {notes?.map((note) => {
                     return (
-                        <li onClick={() => setSelectedNote(note)} key={note.id}>
+                        <NoteTitle
+                            setSelectedNote={setSelectedNote}
+                            key={note.id}
+                            note={note}
+                            selectedNote={selectedNote}>
                             {note.title}
-                        </li>
+                        </NoteTitle>
                     );
                 })}
             </ul>

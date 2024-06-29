@@ -65,6 +65,7 @@ function App() {
                         notes={notes}
                         setSelectedNote={setSelectedNote}
                         handleShowForm={handleShowForm}
+                        selectedNote={selectedNote}
                     />
 
                     {showNewNoteForm || edit ? (
