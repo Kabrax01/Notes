@@ -173,9 +173,15 @@ button {
                     font-size: 1.2rem;
                     font-weight: 600;
                     line-height: 1.2;
-                    max-height: 45vh;
+                    max-height: 100%;
                     overflow-y: scroll;
+                    scrollbar-width: thin;
+                    scrollbar-color: black transparent;
                     word-break: break-word;
+
+                    @include mobile {
+                        height: 22rem;
+                    }
                 }
             }
 
@@ -209,7 +215,7 @@ button {
                 input {
                     margin: 1rem 0;
                     padding: 0.3rem;
-                    width: 70%;
+                    width: 95%;
                     font-size: 1.2rem;
                     font-weight: bold;
                 }
@@ -217,7 +223,7 @@ button {
                 textarea {
                     padding: 0.3rem;
                     flex: 3;
-                    width: 70%;
+                    width: 95%;
                     font-size: 1.2rem;
                 }
 
