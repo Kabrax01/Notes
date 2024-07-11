@@ -36,9 +36,7 @@ function App() {
             (note) => note.id !== selectedNote?.id
         );
         setNotes(newNoteList);
-        if (notes.length > 1) {
-            setSelectedNote(notes.at(-1));
-        }
+        setSelectedNote(notes[0]);
     }
 
     useEffect(() => {
