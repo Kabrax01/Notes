@@ -22,6 +22,7 @@ function NewNoteForm({
 }: NoteFormProps) {
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
+    const [cancel, setCancel] = useState(false);
 
     useEffect(() => {
         if (edit && selectedNote) {
@@ -29,6 +30,10 @@ function NewNoteForm({
             setContent(selectedNote.content);
         }
     }, [edit, selectedNote]);
+
+    function handleCancel() {
+        setCancel(true);
+    }
 
     function handleAddNewNote(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -40,6 +45,13 @@ function NewNoteForm({
 
     function handleEditNote(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+
+        if (cancel) {
+            console.log("success");
+            setCancel(false);
+            setEdit(false);
+            return;
+        }
 
         let editedNote: Note;
         if (selectedNote) {
@@ -73,7 +85,7 @@ function NewNoteForm({
         <form
             className="note_form"
             onSubmit={edit ? handleEditNote : handleAddNewNote}>
-            <div>
+            <div className="note_form_input">
                 <input
                     type="text"
                     className="note_form-title"
@@ -91,7 +103,19 @@ function NewNoteForm({
                     required
                 />
             </div>
-            <button>{!edit ? "Dodaj notatę" : "Edytuj"}</button>
+            {edit ? (
+                <div className="note_form_buttons">
+                    <button>Edytuj</button>
+                    <button onClick={handleCancel}>Anuluj</button>
+                </div>
+            ) : (
+                <div className="note_form_buttons">
+                    <button>Dodaj notatę</button>
+                    <button onClick={() => handleShowForm(false)}>
+                        Anuluj
+                    </button>
+                </div>
+            )}
         </form>
     );
 }
