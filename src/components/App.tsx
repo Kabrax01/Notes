@@ -3,6 +3,7 @@ import "../main.scss";
 import { NoteList } from "./NoteList";
 import { NoteItem } from "./NoteItem";
 import NewNoteForm from "./NewNoteForm";
+import Confirmation from "./Confirmation";
 
 export interface Note {
     id: number;
@@ -19,6 +20,8 @@ function App() {
     const [showNewNoteForm, setShowNewNoteForm] = useState<boolean>(false);
     const [edit, setEdit] = useState<boolean>(false);
     const [background, setBackground] = useState("url(background-4k.webp)");
+    const [showConfirmation, setShowConfirmation] = useState(false);
+    const [confirmationCheck, setConfirmationCheck] = useState(false);
 
     useEffect(() => {
         if (!notes.length) {
@@ -26,6 +29,17 @@ function App() {
         }
         localStorage.setItem("notes", JSON.stringify(notes));
     }, [notes]);
+
+    useEffect(() => {
+        const size = window.innerWidth;
+        size < 900
+            ? setBackground("url(background-mobile.webp)")
+            : setBackground("url(background-4k.webp)");
+    }, []);
+
+    useEffect(() => {
+        setConfirmationCheck(false);
+    }, []);
 
     function handleShowForm() {
         setShowNewNoteForm((prev) => !prev);
@@ -39,12 +53,9 @@ function App() {
         setSelectedNote(notes[0]);
     }
 
-    useEffect(() => {
-        const size = window.innerWidth;
-        size < 900
-            ? setBackground("url(background-mobile.webp)")
-            : setBackground("url(background-4k.webp)");
-    }, []);
+    function handleConfirmationCheck() {
+        setConfirmationCheck((prev) => !prev);
+    }
 
     return (
         <main
@@ -65,7 +76,14 @@ function App() {
                         handleShowForm={handleShowForm}
                         selectedNote={selectedNote}
                     />
-
+                    {showConfirmation && (
+                        <Confirmation
+                            setShowConfirmation={setShowConfirmation}
+                            confirmationCheck={confirmationCheck}
+                            handleConfirmationCheck={handleConfirmationCheck}
+                            handleDeleteNote={handleDeleteNote}
+                        />
+                    )}
                     {showNewNoteForm || edit ? (
                         <NewNoteForm
                             notes={notes}
@@ -78,6 +96,8 @@ function App() {
                         />
                     ) : (
                         <NoteItem
+                            setShowConfirmation={setShowConfirmation}
+                            confirmationCheck={confirmationCheck}
                             handleDeleteNote={handleDeleteNote}
                             setEdit={setEdit}
                             selectedNote={selectedNote}
