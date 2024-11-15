@@ -19,6 +19,12 @@ $border-light-black: 3px solid black;
     }
 }
 
+@mixin tablets {
+    @media (max-width: 1200px) {
+        @content;
+    }
+}
+
 main {
     font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
         sans-serif;
@@ -51,7 +57,7 @@ button {
     height: 70vh;
     width: 60vw;
 
-    @media (max-width: 1200px) {
+    @include tablets {
         width: 80vw;
     }
 
@@ -86,9 +92,45 @@ button {
         @include mobile {
             grid-template-columns: none;
             grid-template-rows: 25vh calc(98lvh - 25vh - 2.2rem);
-            // grid-column: 1;
-            // grid-row: 2;
             height: 100%;
+        }
+
+        .confirmation {
+            position: absolute;
+            @include flexbox();
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: black;
+            background-color: rgb(184, 151, 59);
+            border: $border-light-black;
+            border-radius: 10px;
+            padding: 1rem 2rem;
+
+            @include tablets {
+                width: clamp(25rem, 28rem, 40vw);
+            }
+
+            @include mobile {
+                max-width: 95vw;
+                text-align: center;
+            }
+
+            p {
+                font-size: 1.2rem;
+            }
+
+            &__buttons {
+                button {
+                    border: 1px solid black;
+                }
+            }
+
+            &__checkbox {
+                display: flex;
+                justify-content: center;
+                gap: 0.4rem;
+            }
         }
 
         .note_list {

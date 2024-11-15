@@ -2,11 +2,15 @@ import { Note } from "./App";
 
 interface NoteItemProps {
     handleDeleteNote: () => void;
+    confirmationCheck: boolean;
+    setShowConfirmation: React.Dispatch<React.SetStateAction<boolean>>;
     setEdit: React.Dispatch<React.SetStateAction<boolean>>;
     selectedNote: Note | undefined;
 }
 export function NoteItem({
     handleDeleteNote,
+    confirmationCheck,
+    setShowConfirmation,
     setEdit,
     selectedNote,
 }: NoteItemProps) {
@@ -17,8 +21,15 @@ export function NoteItem({
             </div>
         );
     }
-
     const { title, content } = selectedNote;
+
+    function handleDelete() {
+        if (confirmationCheck) {
+            handleDeleteNote();
+        } else {
+            setShowConfirmation(true);
+        }
+    }
 
     return (
         <div className="note">
@@ -31,7 +42,7 @@ export function NoteItem({
 
             <div className="note_actions">
                 <button onClick={() => setEdit((prev) => !prev)}>Edytuj</button>
-                <button onClick={handleDeleteNote}>Usuń</button>
+                <button onClick={handleDelete}>Usuń</button>
             </div>
         </div>
     );
